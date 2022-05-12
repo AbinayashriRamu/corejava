@@ -1,0 +1,49 @@
+package com.chainsys.files;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class TestFile {
+	public static void create() {
+		try {
+
+			File f = new File("D:\\temp.abi");
+
+			if (f.createNewFile())
+				System.out.println("File created");
+			else
+				System.out.println("File already exists");
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+	}
+
+	public static void FileRename() {
+		File oldName = new File("D:\\temp.abi");
+		File newName = new File("D:\\java.txt");
+		if (oldName.renameTo(newName)) {
+			System.out.println("renamed");
+		} else {
+			System.out.println("Error");
+		}
+	}
+
+	public static void FileAppend() {
+
+		try (FileWriter f = new FileWriter("D:\\java.txt", true);) {
+
+			f.append("www.abi.com");
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+
+	}
+
+	public static void main(String args[]) {
+
+		create();
+		FileRename();
+		FileAppend();
+	}
+}
