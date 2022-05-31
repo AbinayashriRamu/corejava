@@ -21,7 +21,7 @@ public class Shape // base class
 	}
 	
 	//override able method. Virtual Method
-	protected void show()
+	public void show()
 	{
 		System.out.println("Shape show "+height+" Width= "+width);
 	}

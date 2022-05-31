@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Global State</title>
+</head>
+<body>
+	<form action="/firstwebsite/GlobalState" method="post">
+		<div style="Width: 50%; margin: 0 auto">
+			<div>
+				<label for='salary'>Salary:</label> <input type=text name='salary'
+					id='salary' value="20000" />
+			</div>
+			<div style="width: 50%; margin: 0 auto">
+				<input type="hidden" value="50000" name="bonus" id="bonus" />
+				<!-- hidden value will be in the browser not visible -->
+			</div>
+			<div style="width: 50%; margin: 0 auto">
+				<input type="submit" value="set" name="submit">
+			</div>
+			<div style="width: 50%; margin: 0 auto">
+				<input type="submit" value="fetch" name="submit">
+				<!-- input element,its is used to stored data in the client side and is visible in the browser-->
+			</div>
+		</div>
+	</form>
+</body>
+</html>
