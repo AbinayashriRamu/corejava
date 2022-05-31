@@ -8,6 +8,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="D:/Java Training SW/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/abin3133/Downloads/ojdbc11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/abin3133/Downloads/javax.servlet-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/abin3133/Downloads/javax.servlet.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

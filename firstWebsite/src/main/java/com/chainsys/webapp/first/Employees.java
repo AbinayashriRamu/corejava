@@ -1,7 +1,6 @@
 package com.chainsys.webapp.first;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.miniproject.commonutil.InvalidInputDataException;
 import com.chainsys.miniproject.commonutil.LogManager;
+import com.chainsys.miniproject.commonutil.ExceptionManager;
+import com.chainsys.miniproject.commonutil.HTMLHelper;
 import com.chainsys.miniproject.commonutil.Validator;
 import com.chainsys.miniproject.dao.EmployeeDao;
 import com.chainsys.miniproject.pojo.Employee;
-import com.chainsys.miniproject.commonutil.ExceptionManager;
-import com.chainsys.miniproject.commonutil.HTMLHelper;
 
 /**
- * Servlet implementation class Employee
+ * Servlet implementation class Employees
  */
 public class Employees extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +33,8 @@ public class Employees extends HttpServlet {
 	public Employees() {
 		super();
 	}
-     /**
+
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -46,11 +46,9 @@ public class Employees extends HttpServlet {
 		Iterator<Employee> empIterator = allEmployees.iterator();
 		while (empIterator.hasNext()) {
 			Employee result = empIterator.next();
-			// out.println("Employee id: " + "\t" + "Employee first name: " + "\t" +
-			// "Employee last name: " + "\t"
-			// + "Employee email: " + "\t" + "Employee hiredate: " + "\t" + "Employee job
-			// id: " + "\t"
-			// + "Employee salary: " + "\t");
+//			out.println("Employee id: " + "\t" + "Employee first name: " + "\t" + "Employee last name: " + "\t"
+//					+ "Employee email: " + "\t" + "Employee hiredate: " + "\t" + "Employee job id: " + "\t"
+//					+ "Employee salary: " + "\t");
 			out.println("<hr/>");
 
 			out.println(result.getEmp_ID() + "," + result.getFirst_name() + "," + result.getLast_name() + ","
@@ -65,160 +63,179 @@ public class Employees extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		PrintWriter out = response.getWriter();
 		String submitValue = request.getParameter("submit");
+		System.out.println(submitValue);
 		if (submitValue.equals("UPDATE")) {
 			doPut(request, response);
 		} else if (submitValue.equals("DELETE")) {
 			doDelete(request, response);
 		} else if (submitValue.equals("ADD")) {
-			String source = "AddNewEmployee";
-			String Message = "<h1>Error While" + source + "</h1>";
-
+			String source ="AddNewEmployee";
+			String message ="<h1>Error while"+source+ "</h1>";
 			Employee newemp = null;
 			int result = 0;
-			int employee_Id = 0;
+			int empId = 0;
+//			String testname = null;
 			try {
 				newemp = new Employee();
-
 				String id = request.getParameter("id");
 				try {
 					Validator.checkStringForParse(id);
 				} catch (InvalidInputDataException err) {
-					Message += "Error in Employee Id input</p>";
-					String errorPage = ExceptionManager.handleException(err, source, Message);
+					message += "Error in Employee id input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
-
 				}
-				employee_Id = Integer.parseInt(id);
+				empId = Integer.parseInt(id);
 				try {
-					Validator.CheckNumberForGreaterThanZero(employee_Id);
+					Validator.CheckNumberForGreaterThanZero(empId);
 				} catch (InvalidInputDataException err) {
-					Message += "Error in Employee Id input</p>";
-					String errorPage = ExceptionManager.handleException(err, source, Message);
+					message += "Error in Employee id input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
-				newemp.setEmp_ID(employee_Id);
-				// --------------------------------------------------------------------------------------
+				newemp.setEmp_ID(empId);
+//------------------------------------------------------------------------------
 				String fname = request.getParameter("fname");
+//				testname = fname;
 				try {
 					Validator.checkStringOnly(fname);
 				} catch (InvalidInputDataException e) {
-					Message += "Error in First Name input</p>";
-					String errorPage = ExceptionManager.handleException(e, source, Message);
+					message += "Error in Employee firstname input </p>";
+					String errorPage =ExceptionManager.handleException(e, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
 				try {
 					Validator.checklengthOfString(fname);
 				} catch (InvalidInputDataException err) {
-					Message += "Error in First Name input</p>";
-					String errorPage = ExceptionManager.handleException(err, source, Message);
+					message += "Error in Employee firstname input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
-
 				newemp.setFirst_name(fname);
-				// --------------------------------------------------------------------------------------------
+//-----------------------------------
 				String lname = request.getParameter("lname");
+				// testname = fname;
 				try {
-					Validator.checkStringOnly(fname);
-				} catch (InvalidInputDataException e) {
-					Message += "Error in Last_Name input</p>";
-					String errorPage = ExceptionManager.handleException(e, source, Message);
+					Validator.checkStringOnly(lname);
+				} catch (InvalidInputDataException err) {
+					message += "Error in Employee lastname input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
 				try {
 					Validator.checklengthOfString(lname);
 				} catch (InvalidInputDataException err) {
-					Message += "Error in last_Name input</p>";
-					String errorPage = ExceptionManager.handleException(err, source, Message);
+					message += "Error in Employee lastname input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
+					
 				}
 				newemp.setLast_name(lname);
-
-				// ----------------------------------------------------------------------------------------------
+//----------------------------------------------------------			
 				String email = request.getParameter("email");
 				try {
 					Validator.checkMail(email);
 				} catch (InvalidInputDataException e) {
-					Message += "Error in Email input</p>";
-					String errorPage = ExceptionManager.handleException(e, source, Message);
+					message += "Error in Employee email input </p>";
+					String errorPage =ExceptionManager.handleException(e, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
 				newemp.setEmail(email);
-				// -----------------------------------------------------------------------------------------------
+//------------------------------------------------------------			
 				SimpleDateFormat hire_dateFormate = new SimpleDateFormat("dd/MM/yyyy");
-				String hdate = request.getParameter("hdate");
+				String hd = request.getParameter("hdate");
 				// Date hire_date=hire_dateFormate.parse(emp_HireDate);
 
 				try {
-					Validator.checkDateFormat(hdate);
+					Validator.checkDateFormat(hd);
 				} catch (InvalidInputDataException e) {
-					Message += "Error in Hire Date input</p>";
-					String errorPage = ExceptionManager.handleException(e, source, Message);
+					message += "Error in Employee hirdate input </p>";
+					String errorPage =ExceptionManager.handleException(e, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
 				Date newDate = null;
-				try {
-					newDate = hire_dateFormate.parse(hdate);
-				} catch (ParseException e) {
-					Message += "Error in Hire Date input</p>";
-					String errorPage = ExceptionManager.handleException(e, source, Message);
-					out.print(errorPage);
-					return;
-				}
+				newDate = hire_dateFormate.parse(hd);
 
 				newemp.setHire_date(newDate);
-				// ------------------------------------------------------------------------
-				String jobid = request.getParameter("jobid");
+//--------------------------------------------------------------
+				String jobId = request.getParameter("jobid");
 				try {
-					Validator.checkjob(jobid);
+					Validator.checkjob(jobId);
 				} catch (InvalidInputDataException err) {
-					Message += "Error in Job id input</p>";
-					String errorPage = ExceptionManager.handleException(err, source, Message);
+					message += "Error in Employee jobid input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
-				newemp.setJob_id(jobid);
-				// ------------------------------------------------------------------------
+				newemp.setJob_id(jobId);
+//--------------------------------------------------------------			
 				String sal = request.getParameter("salary");
+				float salParse = Float.parseFloat(sal);
 				try {
-					Validator.checkStringForParse(sal);
+					Validator.Checkfees(salParse);
 				} catch (InvalidInputDataException err) {
-					Message += "Error in Salery input</p>";
-					String errorPage = ExceptionManager.handleException(err, source, Message);
+					message += "Error in Employee salary input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
-				float salParse = Float.parseFloat(sal);
 				try {
 					Validator.checkSalary(salParse);
 				} catch (InvalidInputDataException err) {
-					Message += "Error in Salery input</p>";
-					String errorPage = ExceptionManager.handleException(err, source, Message);
+					message += "Error in Employee salary input </p>";
+					String errorPage =ExceptionManager.handleException(err, source, message);
 					out.print(errorPage);
+				//	err.printStackTrace();
 					return;
 				}
 				newemp.setSalary(salParse);
-
+//----------------------------------------------			
 				result = EmployeeDao.insertEmployee(newemp);
-			} catch(Exception e) {
-				e.printStackTrace();}
-				out.println("<div> Add New Employee: " + result + "</div>");
+			} catch (Exception e) {
+				message += "Error in Employee id input </p>";
+				String errorPage =ExceptionManager.handleException(e, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
+			out.println("<div> Add New Employee: " + result + "</div>");
+			// + new Employee()); -> from the servlet send only
+			// object are illegal.
+		} else {
+			out.print("<h1> SELECT VALID CHOICE </h1>");
 		}
-	
 
+	}
+
+	/**
+	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
+	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		String source ="UpdateEmployee";
+		String message ="<h1>Error while"+source+ "</h1>";
 		Employee newemp = new Employee();
 		int result = 0;
 		try {
@@ -227,93 +244,129 @@ public class Employees extends HttpServlet {
 			try {
 				Validator.checkStringForParse(id);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee id input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			int empId = Integer.parseInt(id);
 			try {
 				Validator.CheckNumberForGreaterThanZero(empId);
-			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+			}catch (InvalidInputDataException err) {
+				message += "Error in Employee id input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			newemp.setEmp_ID(empId);
-			// --------------------------------
+//--------------------------------
 			String fname = request.getParameter("fname");
 			try {
 				Validator.checkStringOnly(fname);
-			} catch (InvalidInputDataException e) {
-				e.printStackTrace();
+			} catch (InvalidInputDataException err) {
+				message += "Error in Employee fname input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
 				return;
 			}
 			try {
 				Validator.checklengthOfString(fname);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee fname input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			newemp.setFirst_name(fname);
-			// -----------------------------------
+//-----------------------------------
 			String lname = request.getParameter("lname");
 			try {
-				Validator.checkStringOnly(fname);
-			} catch (InvalidInputDataException e) {
-				e.printStackTrace();
+				Validator.checkStringOnly(lname);
+			} catch (InvalidInputDataException err) {
+				message += "Error in Employee lname input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
 				return;
 			}
 			try {
 				Validator.checklengthOfString(lname);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee lname input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			newemp.setLast_name(lname);
-			// ----------------------------------
+//----------------------------------			
 			String email = request.getParameter("email");
 			try {
 				Validator.checkMail(email);
-			} catch (InvalidInputDataException e) {
-				e.printStackTrace();
+			} catch (InvalidInputDataException err) {
+				message += "Error in Employee email input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
 				return;
 			}
 			newemp.setEmail(email);
-			// --------------------------------------
+//--------------------------------------			
 			SimpleDateFormat hire_dateFormate = new SimpleDateFormat("dd/MM/yyyy");
 			String emp_HireDate = request.getParameter("hdate");
 			// Date hire_date=hire_dateFormate.parse(emp_HireDate);
 
 			try {
 				Validator.checkDateFormat(emp_HireDate);
-			} catch (InvalidInputDataException e) {
-				e.printStackTrace();
+			} catch (InvalidInputDataException err) {
+				message += "Error in Employee hdate input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			Date newDate = null;
-			try {
 				newDate = hire_dateFormate.parse(emp_HireDate);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-
 			newemp.setHire_date(newDate);
-			// ----------------------------------------
+//----------------------------------------
 			String jobId = request.getParameter("jobid");
 			try {
 				Validator.checkjob(jobId);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee jobid input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			newemp.setJob_id(jobId);
-			// ---------------------------------------
+//---------------------------------------			
 			String sal = request.getParameter("salary");
 			try {
 				Validator.checkStringForParse(sal);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee salary input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			float salParse = Float.parseFloat(sal);
 			try {
 				Validator.checkSalary(salParse);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee salary input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			newemp.setSalary(salParse);
-			// ----------------------------------------------
+//----------------------------------------------	
 			result = EmployeeDao.updateEmployee(newemp);
 			System.out.println(result + " Updated Successfully");
 
@@ -322,12 +375,15 @@ public class Employees extends HttpServlet {
 		}
 		out.println("<div> Update Employee: " + result + "</div>");
 	}
-    /**
+
+	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		String source ="DeleteEmployee";
+		String message ="<h1>Error while"+source+ "</h1>";
 		int result = 0;
 		String id = null;
 		try {
@@ -335,17 +391,24 @@ public class Employees extends HttpServlet {
 			try {
 				Validator.checkStringForParse(id);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee id input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			int empId = Integer.parseInt(id);
 			try {
 				Validator.CheckNumberForGreaterThanZero(empId);
 			} catch (InvalidInputDataException err) {
-				err.printStackTrace();
+				message += "Error in Employee id input </p>";
+				String errorPage =ExceptionManager.handleException(err, source, message);
+				out.print(errorPage);
+			//	err.printStackTrace();
+				return;
 			}
 			result = EmployeeDao.deleteEmployee(empId);
-			System.out.println(result);
-			out.println(result + " Deleted Successfully");
+			System.out.println(result + " Deleted Successfully");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

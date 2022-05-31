@@ -44,8 +44,8 @@ package com.chainsys.collections;
 	            System.out.println(emp.getID() + " " + emp.Name);
 	        }
 	    }
-
-	    public static void compareEmp() {
+	}
+	  /*  public static void compareEmp() {
 	        Emp e1 = new Emp(100);
 	        e1.Name = "Sam";
 	        Emp e2 = new Emp(200);
@@ -59,8 +59,8 @@ package com.chainsys.collections;
 	        System.out.println(empList); 
 	        // Collections.sort(empList);
 	        System.out.println(empList);
-	    }
-	}     
+	    } */
+//	}     
 	    /*
 	     * The method sort(List<T>) in the type collections is not applicable for the
 	     * arguments(ArrayList<Player>)
