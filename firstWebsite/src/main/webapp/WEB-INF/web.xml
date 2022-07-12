@@ -64,6 +64,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>Employees</display-name>
+    <servlet-name>Employees</servlet-name>
+    <servlet-class>com.chainsys.webapp.first.Employees</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Employees</servlet-name>
+    <url-pattern>/Employees</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>AttributesDemo</display-name>
     <servlet-name>AttributesDemo</servlet-name>
     <servlet-class>com.chainsys.webapp.first.AttributesDemo</servlet-class>
