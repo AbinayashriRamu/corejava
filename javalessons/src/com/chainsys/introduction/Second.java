@@ -3,7 +3,7 @@ package com.chainsys.introduction;
 public class Second {
     public static void main(String[]args){
     taskA();
-    taskB();
+    //taskB();
     System.out.println("End...");
     }
     public static void taskA()

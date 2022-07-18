@@ -1,7 +1,8 @@
 package com.chainsys.entrypoint;
 
+import com.chainsys.array.EmpArrayDemo;
 
-import com.chainsys.arraylist.Emp;
+//import com.chainsys.arraylist.Emp;
 //import edu.lessons.days60.oops.interfaces;
 
 
@@ -52,13 +53,16 @@ public class Startup {
 		//TestShape.testPolymorphism();
 		
 		//TestDemoB.testDemoB();
-		Emp e=new Emp(2);
-        e.getId();
-        e.equals(e);
-        e.hashCode();
-        System.out.println(e.getId());
-        System.out.println(e.equals(e));
-        System.out.println(e.hashCode());
+//		Emp e=new Emp(2);
+//        e.getId();
+//        e.equals(e);
+//        e.hashCode();
+//        System.out.println(e.getId());
+//        System.out.println(e.equals(e));
+//        System.out.println(e.hashCode());
+		//EmpArrayDemo.createArrayofEmployees();
+		EmpArrayDemo.displayEmployees();
+		
 }
 }
 			

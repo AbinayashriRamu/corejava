@@ -1,0 +1,106 @@
+@charset "ISO-8859-1";
+/*class selectors*/
+.centered {
+	text-align: center;
+}
+
+.largefont {
+	font-size: large;
+	background-color: green;
+	color: white;
+}
+
+.mediumfont {
+	font-size: medium;
+}
+
+.smallfont {
+	font-size: small;
+}
+
+.reddiv {
+	color: red;
+}
+
+/*type selector*/
+div>p {
+	color: yellow;
+	font-size: small;
+}
+
+* /id selctor* /
+#div1 {
+	color: green;
+	font-size: larger;
+	text-align: left;
+}
+/* pseudo selector */
+div:first-child {
+	color: yellow;
+	font-size: small;
+}
+
+div:last-child {
+	color: cyan;
+	font-size: large;
+}
+
+div:nth-child(even) {
+	color: brown;
+	font-size: small;
+}
+
+div:nth-child(odd) {
+	color: blue;
+	font-size: large;
+}
+
+div:nth-child(5n+1) {
+	color: cyan;
+	font-size: large;
+}
+/*type selectors and psudo selcted for link*/
+a {
+	color: lime;
+	text-decoration: none;
+}
+
+a:hover {
+	color: red;
+	text-decoration: underline;
+}
+/*#Chennai {
+	color: blue;
+}
+#Madurai{
+	color: Red;
+}
+#Covai{
+	color: brown;
+}*/
+/* attribute selected */
+/*a[href="http://www.chennai.nic.in"] {
+	color: blue;
+}
+a[href="http://www.Madurai.nic.in"] {
+	color: grey;
+}
+a[href="http://www.Coimbatore.nic.in"] {
+	color: purple;
+}*/
+input[id="fname"] {
+	color: cyan;
+	background-color: brown;
+}
+
+a[href*="chennai.nic"] {
+	color: blue;
+}
+
+a[href*="madurai.nic"] {
+	color: grey;
+}
+
+a[href*="coimbatore.nic"] {
+	color: purple;
+}
