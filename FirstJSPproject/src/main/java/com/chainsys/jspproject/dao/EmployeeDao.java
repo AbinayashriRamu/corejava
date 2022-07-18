@@ -60,7 +60,6 @@ public class EmployeeDao {
 			ps.setDate(5, convertTosqlDate(newemp.getHire_date()));
 			ps.setString(6, newemp.getJob_id());
 			ps.setFloat(7, newemp.getSalary());
-
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -253,7 +252,7 @@ public class EmployeeDao {
 	}
 	//To retrieve all employee data 
 	 public static List<Employee> getAllEmployee(){
-		 List<Employee> listOfEmployees = new ArrayList<Employee>();//ok sir
+		 List<Employee> listOfEmployees = new ArrayList<Employee>();
 		 Employee emp =null;
 			String selectquery = "select EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,HIRE_DATE,JOB_ID,SALARY  from Employees ";
 			Connection con = null;
@@ -262,8 +261,7 @@ public class EmployeeDao {
 			try {
 				con = getConnection();
 				ps = con.prepareStatement(selectquery);
-				rs =ps.executeQuery();
-				
+				rs =ps.executeQuery();	
 				   while(rs.next()) {
 					   emp = new Employee();
 			          emp.setEmp_ID(rs.getInt(1));

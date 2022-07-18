@@ -4,20 +4,19 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Delete Employees</title>
+<title>Delete Employee</title>
 </head>
 <body>
-	<form action="Employees" method="post">
-		<!-- -need to mention method=post -->
-		<center>
+<form action="DeleteEmployeeServlet" method="post">
+		<!--need to mention method = post  -->
+		<div style="Width: 50%; margin: 0 auto">
 			<div>
-				ID: <input type='text' name='id'>
+				Employee ID : <input type='text' name='id'>
 			</div>
 			<div>
-				<input type='submit' value='DELETE' name='submit'>
+				<input type='submit' value="DELETE" name="submit">
 			</div>
-
-		</center>
+		</div>
 	</form>
 </body>
 </html>
